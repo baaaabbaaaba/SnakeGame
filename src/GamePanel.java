@@ -65,6 +65,8 @@ public class GamePanel extends JPanel implements ActionListener{
 				}
 				else {
 					g.setColor(new Color(45,180,0));
+					//キャラの色ランダム
+					//g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
 					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
 				}
 			}
@@ -140,11 +142,16 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 	public void gameOver(Graphics g) {
+		//スコア
+		g.setColor(Color.red);
+		g.setFont(new Font("Ink Free",Font.BOLD,40));
+		FontMetrics metrics1 = getFontMetrics(g.getFont());
+		g.drawString("Score:"+applesEaten, (SCREEN_WIDTH - metrics1.stringWidth("Score:"+applesEaten))/2, g.getFont().getSize());
 		//ゲームオーバーテキスト
 		g.setColor(Color.red);
 		g.setFont(new Font("Ink Free",Font.BOLD,75));
-		FontMetrics metrics = getFontMetrics(g.getFont());
-		g.drawString("Game Over", (SCREEN_WIDTH - metrics.stringWidth("Game Over"))/2,SCREEN_HEIGHT/2);
+		FontMetrics metrics2 = getFontMetrics(g.getFont());
+		g.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over"))/2,SCREEN_HEIGHT/2);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
