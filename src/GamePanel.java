@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
 	static final int SCREEN_WIDTH = 600;
 	static final int SCREEN_HEIGHT = 600;
-	static final int UNIT_SIZE = 25;
+	static final int UNIT_SIZE = 25;//線の間隔（数字が小さいと間隔が狭い、数字が大きいと間隔が広い)
 	static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
 	static final int DELAY = 75;
 	final int x[] = new int[GAME_UNITS];
@@ -49,12 +49,15 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void draw(Graphics g) {
 		
 		for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++) {
-			g.drawLine(i*UNIT_SIZE,0,i*UNIT_SIZE,SCREEN_HEIGHT);
-			g.drawLine(0,i*UNIT_SIZE,SCREEN_WIDTH,i*UNIT_SIZE);
+			g.drawLine(i*UNIT_SIZE,0,i*UNIT_SIZE,SCREEN_HEIGHT);//縦線表示
+			g.drawLine(0,i*UNIT_SIZE,SCREEN_WIDTH,i*UNIT_SIZE);//横線表示
 		}
+		g.setColor(Color.red);
+		g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 	}
 	public void newApple() {
-		
+		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
+		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
 	}
 	public void move() {
 		
