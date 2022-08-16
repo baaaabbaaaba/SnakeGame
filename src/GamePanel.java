@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,22 +50,31 @@ public class GamePanel extends JPanel implements ActionListener{
 	}                                                          
 	public void draw(Graphics g) {
 		
-		for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++) {
-			g.drawLine(i*UNIT_SIZE,0,i*UNIT_SIZE,SCREEN_HEIGHT);//縦線表示
-			g.drawLine(0,i*UNIT_SIZE,SCREEN_WIDTH,i*UNIT_SIZE);//横線表示
-		}
-		g.setColor(Color.red);//appleの色
-		g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+		if(running) {
+			for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++) {
+				g.drawLine(i*UNIT_SIZE,0,i*UNIT_SIZE,SCREEN_HEIGHT);//縦線表示
+				g.drawLine(0,i*UNIT_SIZE,SCREEN_WIDTH,i*UNIT_SIZE);//横線表示
+			}
+			g.setColor(Color.red);//appleの色
+			g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 		
-		for(int i = 0; i< bodyParts; i++) {
-			if(i ==0) {
-				g.setColor(Color.green);
-				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+			for(int i = 0; i< bodyParts; i++) {
+				if(i ==0) {
+					g.setColor(Color.green);
+					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+				}
+				else {
+					g.setColor(new Color(45,180,0));
+					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+				}
 			}
-			else {
-				g.setColor(new Color(45,180,0));
-				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-			}
+			g.setColor(Color.red);
+			g.setFont(new Font("Ink Free",Font.BOLD,40));
+			FontMetrics metrics = getFontMetrics(g.getFont());
+			g.drawString("Score:"+applesEaten, (SCREEN_WIDTH - metrics.stringWidth("Score:"+applesEaten))/2, g.getFont().getSize());
+		}
+		else {
+			gameOver(g);
 		}
 		
 	}
@@ -129,7 +140,11 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 	public void gameOver(Graphics g) {
-		
+		//ゲームオーバーテキスト
+		g.setColor(Color.red);
+		g.setFont(new Font("Ink Free",Font.BOLD,75));
+		FontMetrics metrics = getFontMetrics(g.getFont());
+		g.drawString("Game Over", (SCREEN_WIDTH - metrics.stringWidth("Game Over"))/2,SCREEN_HEIGHT/2);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
