@@ -104,8 +104,13 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+
+		if(running) {
+			move();
+			checkApple();
+			checkCollisions();
+		}
+		repaint();
 	}
 
 	public class MyKeyAdapter extends KeyAdapter{
